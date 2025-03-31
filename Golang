@@ -1,0 +1,24 @@
+//go-app
+
+//filename.go
+package main
+import (
+        "fmt"
+        "net/http"
+)
+func handler (w http.ResponseWriter, r *http.Request) {
+        fmt.Println ("Received request")
+        fmt. Fprintf (w, "Hello from Golang on AWS!")
+}
+func main () {
+        http.HandleFunc("/", handler)
+        fmt. Println ("Golang server running on port 4000")
+        http.ListenAndServe (":4000", nil)
+}
+
+//Dockerfile
+FROM golang:latest
+WORKDIR /app
+COPY main.go .
+RUN go build -o app main.go
+CMD ["/app/app"]
