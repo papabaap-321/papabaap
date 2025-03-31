@@ -1,0 +1,5 @@
+//get-item command
+aws dynamodb put-item --table-name papabaap --item "{\"UserId\": {\"S\": \"123\"}, \"Name\": {\"S\": \"Harsh Jha\"}, \"Email\":{\"S\": \"harsh@example.com\"}}" --region ap-southeast-2
+
+//put-item command
+aws dynamodb get-item --table-name papabaap --item "{\"UserId\": {\"S\": \"123\"}}" --region ap-southeast-2
