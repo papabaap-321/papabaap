@@ -1,0 +1,20 @@
+//node-app
+
+
+//filename.js
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello from Node.js\n');
+});
+
+server.listen(3000, () => {
+    console.log('Node.js server running on port 3000');
+});
+
+//Dockerfile
+FROM node:latest
+WORKDIR /app
+COPY filename.js .
+CMD ["node", "filename.js"]
