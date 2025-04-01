@@ -1,0 +1,32 @@
+//go-subroutines
+
+package main
+import (
+"fmt"
+"time"
+)
+// A function that simulates some work
+func printNumbers(from string, n int, done chan bool) {
+for i := 1; i <= n; i++ {
+fmt.Printf("%s: %d\n", from, i)
+time.Sleep(500 * time.Millisecond) // Simulate delay
+}
+done <- true
+}
+func main() {
+// Channel to synchronize goroutines
+done := make(chan bool)
+fmt.Println("Starting goroutines")
+// Starting two goroutines
+go printNumbers("Goroutine1", 5, done)
+go printNumbers("Goroutine2", 5, done)
+// Main thread prints its own numbers
+for i := 1; i <= 5; i++ {
+fmt.Printf("Main: %d\n", i)
+time.Sleep(500 * time.Millisecond)
+}
+// Waiting for both goroutines to complete
+<-done
+<-done
+fmt.Println("All goroutines finished")
+}
